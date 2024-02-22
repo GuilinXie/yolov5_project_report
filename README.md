@@ -1,18 +1,18 @@
 # Contents of Table
 
 * [Introduction](#introduction)
-* YoloV5 Features
-* Class Diagram for major classes
-* Data Flow
-* Experiments
-  * Task: detect traffic signs
-  * Data Exploratory Analysis
-  * Prepare Yolo format labels
-  * Train Model
-  * Train and Val results Analysis
-  * Approaches to improve
-* Pros and Cons of Yolov5
-* References
+* [YoloV5 Features](#yolov5 features)
+* [Class Diagram for major classes](#Class Diagram for major classes)
+* [Data Flow](#Data_Flow)
+* [Experiments](#Experiments)
+  * [Task: detect traffic signs](#Task:_detect_traffic_signs)
+  * [Data Exploratory Analysis](#Data_Exploratory_Analysis)
+  * [Prepare Yolo format labels](#Prepare_Yolo_format_labels)
+  * [Train Model](#Train_Model)
+  * [Train and Val results Analysis](#Train_and_Val_results_Analysis)
+  * [Approaches to improve](#Approaches_to_improve)
+* [Pros and Cons of Yolov5](#Pros_and_Cons_of_Yolov5)
+* [References](#References)
 
 # Introduction
 
@@ -107,7 +107,7 @@ Train a yolov5 model to detect 4 traffic signs: speedlimit, crosswalk, trafficli
 
 877 road sign images, 4 class
 
-![1708544160918](image/yolov5_object_diagram/1708544160918.png)
+![1708544160918](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/labels.jpg)
 
 The top-left image shows the number of instances for each class. The most frequent class is speedlimit, with the number of about 570,  while the stop sign is the least frequent, with only around 90 instances. This indicates that, firstly, the classes are imbalanced. Secondly, we may need to collect more data. As some best practice recommends to train over 1500 images per class, and more than 10, 000 instances per class, with 10% background images, to achieve a robust Yolov5 detection model and to reduce FP errors. But at this point, I will just work on this 877 tiny image dataset to show Yolov5 workflow.
 
