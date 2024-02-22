@@ -2,15 +2,15 @@
 
 * [Introduction](#introduction)
 * [YoloV5 Features](#yolov5_features)
-* [Class Diagram for major classes](#Class_Diagram_for_major_classes)
+* [Class Diagram for Major Classes](#Class_Diagram_for_major_classes)
 * [Data Flow](#Data_Flow)
 * [Experiments](#Experiments)
-  * [Task-detect traffic signs](#Task-detect_traffic_signs)
+  * [Task-Detect Traffic Signs](#Task-detect_traffic_signs)
   * [Data Exploratory Analysis](#Data_Exploratory_Analysis)
-  * [Prepare Yolo format labels](#Prepare_Yolo_format_labels)
+  * [Prepare Yolo Format Labels](#Prepare_Yolo_format_labels)
   * [Train Model](#Train_Model)
-  * [Train and Val results Analysis](#Train_and_Val_results_Analysis)
-  * [Approaches to improve](#Approaches_to_improve)
+  * [Train and Val Results Analysis](#Train_and_Val_results_Analysis)
+  * [Approaches to Improve](#Approaches_to_improve)
 * [Pros and Cons of Yolov5](#Pros_and_Cons_of_Yolov5)
 * [References](#References)
 
@@ -43,7 +43,7 @@ It can detect objects in 3 size scales.
    3. More grids and anchors assigned as ground truth targets to increase positive classes.
    4. Revised formula to predict the box coordinates, to reduce grid sensiticity and prevent predicting unbounded box dimensions.
 
-# Class Diagram for major classes
+# Class Diagram for Major Classes
 
 ![](http://www.plantuml.com/plantuml/svg/~1UDgDL5rhsp0KVVUlq5ktRlPBzh9G1asRGY65GX_sC8PGvEjKgomPITwMPVtlkvBiE7RaiaAeTUxNkVSUwO9moQmbjIv1seBhkjQgU6Yb4ol6Nq2Lj-20Ew7L8RiW_Y-uTjyv3IVgzWsyUz-17ofjVZ5J1k0LVyaI_dHupLAs6wr-7h99gjCZhLhhwys4BsRoFZq-tisNvCpD65VQEGaA-ClKOQ-bBeuJYZrbSJ1KAE4edJ3lZddV26jtDIZNmoLOpYJGni3HbKlHJFryRi6a-0DqAvW5UpwCG6s5jXDMSoomUUYnnkXA80MjW4gs1tFi8CuyV0jLwJw0DOtSpzIFepaC8cYTG5l979EQbM1iiS7_zpNRWJqSHJNCRa0Sc36Yu7VlqvT-A_krAZTiYypI2yBp3XnMgOUT-IHK-EWHKclB14z0dtkCQocP0rgfS-HJ6DKiuNjLULvmYzWcO8TnTr9RYtAjczR11h-xpMvR8KlgcC4kJjMWKButww_2FM_qJZWRGX8PxpGAhpDQd3LeVwU9CqmeX738oKU1NERv9GaI8qjI1ZWem0S4zAeeYB_GQ0uSepv8PNHDUBKZsX1KUwW3vJXgCJhwsplDYdTs14LUsVX6agBuqbDecB7GFM4fhqKA3PNJEJs1gSMWgIDoimYEmmEI9GH9D38_tpkovGQyQ0Pzu68JF58vbt5rXMbLk2BfxVcP3T773NPH9oeBTOuQGKTH4L1iAu5K7gLUHAE0FCU-fyh3GBtzWHKKM1jYFiQ78SOF1SBKfj7OnfHIgi99mZVwBaQvbiJxduytb_bVhD8_evXmuZ3IVnXvb7zYJV6sEMtuCutVmRP-kFu_xpKpSl_aTDC8jSjYBJ_bapwcYQxoV6JEGYPIV7iMPGdgEzQ9p_K_x9ogum00)
 
@@ -99,7 +99,7 @@ NMS includes actions such as
 
 # Experiments
 
-**Task**
+**Task-Detect Traffic Signs**
 
 Train a yolov5 model to detect 4 traffic signs: speedlimit, crosswalk, trafficlight, stop
 
@@ -115,7 +115,7 @@ The top-right image shows that most of the bounding boxes are relatively small, 
 
 The bottom-left image shows that the instances are mostly located in the middle of the images.
 
-**Prepare Yolo format labels**
+**Prepare Yolo Format Labels**
 
 The original labels are (x1, y1, x2, y2), which are the top-left and bottom-right positions in images, we convert these to (x0, y0, w, h) for yolo format, which are the bounding box's center position and the w, h ratio to the image size.
 
@@ -183,25 +183,25 @@ The target objects is already small, and cut out most of it and still mark it as
 
 To improve this, we need to mask out the partially left objects if they are too small as compared to a certain threshold. We need to mask out the objects in the image, because we do not want to leave any partially left objects without labels.
 
-**Approaches to improve**
+**Approaches to Improve**
 
 According to the previous result analysis, I figure out that we could do the following to improve the model's performance:
 
-1. **From dataset's side:**
+1. **From the dataset's view**
 
 * Collect more traffic sign data, to match the best practice of 1500 images per class, 10, 000 instances per class
 * Collect more data for traffic light
 * Add 10% background images to reduce FPs
 
-2. **From training's side:**
+2. **From the training's view**
 
 * Continue training for like 20 more epochs
 
-3. **From data augmentation's side**:
+3. **From data augmentation's view**:
 
 * Customized mosaic augmentation to avoid small object's FPs
 
-4. **From model's side**
+4. **From model architecture's view**
 
 * Add a 4th detection heads in 160 * 160 feature map level, so that it can better detect small objects
 * Add more anchor boxes in the small scale feature map to detect small objects
