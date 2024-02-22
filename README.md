@@ -1,11 +1,11 @@
 # Contents of Table
 
 * [Introduction](#introduction)
-* [YoloV5 Features](#yolov5 features)
-* [Class Diagram for major classes](#Class Diagram for major classes)
+* [YoloV5 Features](#yolov5_features)
+* [Class Diagram for major classes](#Class_Diagram_for_major_classes)
 * [Data Flow](#Data_Flow)
 * [Experiments](#Experiments)
-  * [Task: detect traffic signs](#Task:_detect_traffic_signs)
+  * [Task-detect traffic signs](#Task-detect_traffic_signs)
   * [Data Exploratory Analysis](#Data_Exploratory_Analysis)
   * [Prepare Yolo format labels](#Prepare_Yolo_format_labels)
   * [Train Model](#Train_Model)
