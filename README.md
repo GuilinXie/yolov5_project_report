@@ -14,7 +14,7 @@
 * Pros and Cons of Yolov5
 * References
 
-# * **Introduction**
+# Introduction
 
 Yolov5 is an anchor-based real-time object detection model.
 
@@ -22,7 +22,7 @@ In the Yolov5 architecture, there are 1 backbone, followed by 3 detection heads.
 
 It can detect objects in 3 size scales.
 
-# * YoloV5 Features
+# YoloV5 Features
 
 1. Dynamic architecture
 2. Data augmentation techniques
@@ -43,95 +43,9 @@ It can detect objects in 3 size scales.
    3. More grids and anchors assigned as ground truth targets to increase positive classes.
    4. Revised formula to predict the box coordinates, to reduce grid sensiticity and prevent predicting unbounded box dimensions.
 
-# * **Class Diagram for major classes**
+# Class Diagram for major classes**
 
 ![](http://www.plantuml.com/plantuml/svg/~1UDgDL5rhsp0KVVUlq5ktRlPBzh9G1asRGY65GX_sC8PGvEjKgomPITwMPVtlkvBiE7RaiaAeTUxNkVSUwO9moQmbjIv1seBhkjQgU6Yb4ol6Nq2Lj-20Ew7L8RiW_Y-uTjyv3IVgzWsyUz-17ofjVZ5J1k0LVyaI_dHupLAs6wr-7h99gjCZhLhhwys4BsRoFZq-tisNvCpD65VQEGaA-ClKOQ-bBeuJYZrbSJ1KAE4edJ3lZddV26jtDIZNmoLOpYJGni3HbKlHJFryRi6a-0DqAvW5UpwCG6s5jXDMSoomUUYnnkXA80MjW4gs1tFi8CuyV0jLwJw0DOtSpzIFepaC8cYTG5l979EQbM1iiS7_zpNRWJqSHJNCRa0Sc36Yu7VlqvT-A_krAZTiYypI2yBp3XnMgOUT-IHK-EWHKclB14z0dtkCQocP0rgfS-HJ6DKiuNjLULvmYzWcO8TnTr9RYtAjczR11h-xpMvR8KlgcC4kJjMWKButww_2FM_qJZWRGX8PxpGAhpDQd3LeVwU9CqmeX738oKU1NERv9GaI8qjI1ZWem0S4zAeeYB_GQ0uSepv8PNHDUBKZsX1KUwW3vJXgCJhwsplDYdTs14LUsVX6agBuqbDecB7GFM4fhqKA3PNJEJs1gSMWgIDoimYEmmEI9GH9D38_tpkovGQyQ0Pzu68JF58vbt5rXMbLk2BfxVcP3T773NPH9oeBTOuQGKTH4L1iAu5K7gLUHAE0FCU-fyh3GBtzWHKKM1jYFiQ78SOF1SBKfj7OnfHIgi99mZVwBaQvbiJxduytb_bVhD8_evXmuZ3IVnXvb7zYJV6sEMtuCutVmRP-kFu_xpKpSl_aTDC8jSjYBJ_bapwcYQxoV6JEGYPIV7iMPGdgEzQ9p_K_x9ogum00)
-
-```plantuml
-' class models.common.MultiBackendDetection{
-'     model
-'     -_model_type()
-'     +forward()
-' }
-' class models.common.Model{}
-class models.common.Conv{
-    +forward()
-    +forward_fuse()
-}
-class models.common.C3{}
-class models.common.SPPF{}
-class models.common.Concat{}
-class models.common.Bottleneck{}
-class models.yolo.DetectionModel{
-    -__init__()
-    +forward()
-    -forward_augment()
-    -descale_pred()
-    -clip_augment()
-    -initialize_biases()
-}
-class models.yolo.BaseModel{
-    +forward()
-    -forward_once()
-    -profile_one_layer()
-    +fuse()
-    +info()
-    -apply()
-}
-class models.yolo.Detect{}
-' class utils.dataloaders.LoadImages{
-'     -__init__()
-'     -__iter__()
-'     -__next__()
-' }
-class utils.dataloaders.LoadImagesAndLabels{
-    -__init__()
-    -__getitem__()
-    +load_image()
-    +load_mosaic()
-    +load_mosaic9()
-    +collate_fn()
-    +collate_fn4()
-}
-
-class utils.dataloaders.InfiniteDataLoader{}
-class utils.loss.ComputeLoss{
-    +build_targets()
-}
-class nn.BCEWithLogitsLoss{}
-class utils.loss.FocalLoss{}
-stereotype train{}
-
-' MultiBackendDetection *--* Model : detect mode
-' Model <.. Conv : build model from cfg or pretrained
-' Model <.. C3
-' Model <.. SPPF
-' Model <.. Concat
-' Model <.. Detect
-DetectionModel ..> Conv : parse model
-DetectionModel ..> C3
-DetectionModel ..> SPPF
-DetectionModel ..> Concat
-DetectionModel .r.> Detect
-C3 ..> Bottleneck
-LoadImagesAndLabels o.. InfiniteDataLoader : create_dataloader()
-DetectionModel ..> LoadImagesAndLabels : train.run()
-' MultiBackendDetection <.. LoadImages : detect.run()
-ComputeLoss ..> FocalLoss : if enable focal_loss
-ComputeLoss --> BCEWithLogitsLoss : objectness_loss, class_loss
-FocalLoss ..> BCEWithLogitsLoss
-' ComputeLoss ..> BCEWithLogitsLoss : class_loss
-' MultiBackendDetection <... ComputeLoss : loss()
-DetectionModel -l-|> BaseModel
-' DetectionModel *--* Model : train mode
-DetectionModel ..> utils.torch_utils.ModelEMA
-DetectionModel ..> utils.torch_utils.EarlyStopping
-train --> ComputeLoss
-DetectionModel <-- ComputeLoss
-
-utils .[hidden].> models
-
-```
 
 **train** is the entry point.
 
@@ -145,7 +59,7 @@ build_targets() is an important method to assign GT boxes to the right feature m
 
 **LoadImagesAndLabels** and **InifiniteDataLoader** access and wrap the input images and labels for training.
 
-# * **Data Flow**
+# Data Flow
 
 Assume we have
 
@@ -154,26 +68,7 @@ B: the number of anchor boxes = 3
 C: class = 80
 
 Example model: Yolov5s
-
-```plantuml
-'skinparam BackgroundColor transparent
-skinparam componentStyle rectangle
-
-component Preprocessing
-component Backbone
-component Head
-component Detect
-component Output
-component Input
-component Postprocessing
-
-Input -r-> Preprocessing : H * W * 3
-Preprocessing -r-> Backbone : 3 * 640 * 640
-Backbone -r-> Head 
-Head -r-> Detect : 128 * 80 * 80 (large)\n 256 * 40 * 40 (median)\n 512 * 20 * 20 (small)
-Detect -> Postprocessing : 255 * 80 * 80 (large)\n255 * 40 * 40 (median)\n255 * 20 * 20 (small)
-Postprocessing -> Output : [bbox, conf, class]
-```
+![](http://www.plantuml.com/plantuml/svg/~1UDfjKR5Emp0GtVqLjv4YAgKfgIe61c0e4vKO683XaXnHLESSsOu4Vy_5XkAK3ddAlNT-xpcvS8UE1xJOmntMXzQQaPjxeuq5Rv6TICHU_MtLfXyC2_VilpI1fTeZjvgKEYgmjpHOKvDp7RS9FoLKyffGEy8c6H_8Ys52F8r-65FYaUVptZYVXAcWmz8kR-Sru0PsS0alygpLN0dBlzraRoqxc-iyeZeAOMtg2ofWc6DXERGgjd9WcqV8DDgM5cyCHRaHAhW9P3qr7V8abAj2k2AFaBaUjLwe7x-f_UnYab2KvRc4IFyFYFof_uchvCGlBFwlLMK-h-G7yuUWHkVUlm5UBgoO)
 
 *Note that the 255 = B * (bbox + obj + cls) = 3 * (4 + 1 + 80)*
 
@@ -202,7 +97,7 @@ NMS includes actions such as
 3. sorting conf in descending order,
 4. outputing the result predictions after filtering overlapping iou, it has a output number of limit with max_nms = 300
 
-# * **Experiments**
+# Experiments
 
 **Task**
 
@@ -248,7 +143,7 @@ python train.py --epochs=50 --weights yolov5s.pt --data yolov5/data/data.yaml  -
 
 train & val loss
 
-![1708546857160](image/yolov5_object_diagram/1708546857160.png)
+![1708546857160](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/results.png)
 
 The loss results show that training loss and val loss are decreasing and precision, recall and mAP metrics are increasing as expected.
 
@@ -256,7 +151,7 @@ The cls_clss and mAP_0.5 are converging to the flat point. But the box_loss, obj
 
 **Precision-Recall Curve**
 
-![1708554987946](image/yolov5_object_diagram/1708554987946.png)
+![1708554987946](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/PR_curve.png)
 
 This figure shows that, for all alsses, in area near point (Recall = 0.8, Precision = 0.93), the  model performs well on both Precison and Recall.
 
@@ -264,7 +159,7 @@ And the model does not predict trafficlight as good as other classes.
 
 **Confusion Matrix**
 
-![1708555396374](image/yolov5_object_diagram/1708555396374.png)
+![1708555396374](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/confusion_matrix.png)
 
 The confusion matrix shows that, the model makes wrong predictions between (crosswalk, trafficlight, speedlimit) and background.
 
@@ -272,13 +167,13 @@ So we can consider to add some background images during training.
 
 **Val Predictions**
 
-![1708556883215](image/yolov5_object_diagram/1708556883215.png)
+![1708556883215](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/val_batch0_pred_custom.jpg)
 
 In this val result image, we can see that all the predictions are correct, but there are 4 trafficlight signs are with low confidence score like 0.3 and 0.4, as marked in red circles.
 
 If we want to increase the correct predictions with higher confidence score, we can try to modify the objectness loss function. In the source code of Yolov5, it calculate objectness loss using iou, we can change it to predict 1 instead.
 
-![1708556807111](image/yolov5_object_diagram/1708556807111.png)
+![1708556807111](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/val_batch1_pred_custom.jpg)
 
 This val results have a False Positive (FP) prediction as circled in red. It predicts a partial hidden sign as speedlimit with a very high confidence=0.7.
 
@@ -313,7 +208,7 @@ According to the previous result analysis, I figure out that we could do the fol
 * Try larger models like Yolov5l
 * Trye newer models like Yolov8
 
-Reference:
+# Reference:
 
 [1] https://github.com/ultralytics/yolov5/issues/11299
 
