@@ -151,8 +151,9 @@ The cls_clss and mAP_0.5 are converging to the flat point. But the box_loss, obj
 
 **Precision-Recall Curve**
 
- <img align="center" src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/PR_curve.png" width="450" height="450">
-
+<p align="center">
+ <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/PR_curve.png" width="400" height="400">
+</p>
 This figure shows that, for all classes, in the area near the point (Recall = 0.8, Precision = 0.93), the  model performs well on both Precision and Recall.
 
 The model does not predict trafficlight as well as other classes.
