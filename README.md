@@ -107,7 +107,9 @@ Train a yolov5 model to detect 4 traffic signs: speed limit, crosswalk, traffic 
 
 877 road sign images, 4 class
 
-![1708544160918](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/labels.jpg)
+<p align="center">
+ <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/labels.jpg" width="500" height="500">
+</p>
 
 The top-left image shows the number of instances for each class. The most frequent class is speedlimit, with the number of about 570,  while the stop sign is the least frequent, with only around 90 instances. This indicates that, firstly, the classes are imbalanced. Secondly, we may need to collect more data. Some best practice recommends training over 1500 images per class, and more than 10, 000 instances per class, with 10% background images, to achieve a robust Yolov5 detection model and to reduce FP errors. But at this point, I will just work on this 877-tiny image dataset to show the Yolov5 workflow.
 
@@ -160,7 +162,9 @@ The model does not predict trafficlight as well as other classes.
 
 **Confusion Matrix**
 
-![1708555396374](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/confusion_matrix.png)
+<p align="center">
+ <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/confusion_matrix.png" width="500" height="500">
+</p>
 
 The confusion matrix shows that the model makes wrong predictions between (crosswalk, trafficlight, speedlimit) and the background.
 
@@ -168,7 +172,9 @@ So we can consider adding some background images during training.
 
 **Val Predictions**
 
-![1708556883215](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/val_batch0_pred_custom.jpg)
+<p align="center">
+ <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/val_batch0_pred_custom.jpg" width="500" height="500">
+</p>
 
 In this val result image, we can see that all the predictions are correct, but there are 4 trafficlight signs with low confidence scores like 0.3 and 0.4, as marked in red circles.
 
