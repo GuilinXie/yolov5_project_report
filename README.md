@@ -151,7 +151,7 @@ The cls_clss and mAP_0.5 are converging to the flat point. But the box_loss, obj
 
 **Precision-Recall Curve**
 
- <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/PR_curve.png" width="250" height="250">
+ <img align="center" src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/PR_curve.png" width="450" height="500">
 
 This figure shows that, for all classes, in the area near the point (Recall = 0.8, Precision = 0.93), the  model performs well on both Precision and Recall.
 
