@@ -99,11 +99,11 @@ NMS includes actions such as
 
 # Experiments
 
-**Task-Detect Traffic Signs**
+## Task-Detect Traffic Signs
 
 Train a yolov5 model to detect 4 traffic signs: speed limit, crosswalk, traffic light, stop
 
-**Data Exploratory Analysis**
+## Data Exploratory Analysis
 
 877 road sign images, 4 class
 
@@ -117,11 +117,11 @@ The top-right image shows that most of the bounding boxes are relatively small, 
 
 The bottom-left image shows that the instances are mostly located in the middle of the images.
 
-**Prepare Yolo Format Labels**
+## Prepare Yolo Format Labels
 
 The original labels are (x1, y1, x2, y2), which are the top-left and bottom-right positions in images, we convert these to (x0, y0, w, h) for yolo format, which are the bounding box's center position and the w, h ratio to the image size.
 
-**Train Model**
+## Train Model
 
 Firstly, we configure:
 
@@ -141,7 +141,7 @@ Then, we train by using
 python train.py --epochs=50 --weights yolov5s.pt --data yolov5/data/data.yaml  -- hyp yolov5/data/hyps/hyp.yaml --cfg yolov5/models/yolov5s.yaml --batch-size 32 --imgsz 640
 ```
 
-**Train & Val Result Analysis**
+## Train & Val Result Analysis
 
 train & val loss
 
@@ -151,7 +151,7 @@ The loss results show that training loss and val loss are decreasing and precisi
 
 The cls_clss and mAP_0.5 are converging to the flat point. But the box_loss, obj_loss, and mAP_0.5:0.95, and recall are still slightly decreasing or increasing over the number of epochs. This means that if we train more epochs, these metrics may get better.
 
-**Precision-Recall Curve**
+## Precision-Recall Curve
 
 <p align="center">
  <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/PR_curve.png" width="550" height="500">
@@ -160,17 +160,17 @@ This figure shows that, for all classes, in the area near the point (Recall = 0.
 
 The model does not predict trafficlight as well as other classes.
 
-**Confusion Matrix**
+## Confusion Matrix
 
 <p align="center">
- <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/confusion_matrix.png" width="550" height="500">
+ <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/confusion_matrix.png" width="600" height="550">
 </p>
 
 The confusion matrix shows that the model makes wrong predictions between (crosswalk, trafficlight, speedlimit) and the background.
 
 So we can consider adding some background images during training.
 
-**Val Predictions**
+## Val Predictions
 
 <p align="center">
  <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/val_batch0_pred_custom.jpg" width="500" height="500">
@@ -193,30 +193,34 @@ The target object is already small, and cutting out most of it and still marking
 
 To improve this, we need to mask out the partially left objects if they are too small as compared to a certain threshold. We need to mask out the objects in the image because we do not want to leave any partially left objects without labels.
 
-**Approaches to Improve**
+## Approaches to Improve
 
 According to the previous result analysis, I figured out that we could do the following to improve the model's performance:
 
-1. **From the dataset's view**
+### 1. From the dataset's view
 
 * Collect more traffic sign data, to match the best practice of 1500 images per class, 10, 000 instances per class
 * Collect more data for traffic light
 * Add 10% background images to reduce FPs
 
-2. **From the training's view**
+### 2. From the training's view
 
 * Continue training for like 20 more epochs
 
-3. **From data augmentation's view**:
+### 3. From data augmentation's view
 
 * Customized mosaic augmentation to avoid small objects' FPs
 
-4. **From model architecture's view**
+### 4. From model architecture's view
 
 * Add a 4th detection head in 160 * 160 feature map level, so that it can better detect small objects
 * Add more anchor boxes in the small-scale feature map to detect small objects
 * Try larger models like Yolov5l
 * Trye newer models like Yolov8
+
+### 5. From hyperparameters' view
+* Enable focal loss to fight imbalanced datasets
+  
 
 # Reference:
 
