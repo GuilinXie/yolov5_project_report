@@ -154,7 +154,7 @@ The cls_clss and mAP_0.5 are converging to the flat point. But the box_loss, obj
 **Precision-Recall Curve**
 
 <p align="center">
- <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/PR_curve.png" width="500" height="500">
+ <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/PR_curve.png" width="550" height="500">
 </p>
 This figure shows that, for all classes, in the area near the point (Recall = 0.8, Precision = 0.93), the  model performs well on both Precision and Recall.
 
@@ -163,7 +163,7 @@ The model does not predict trafficlight as well as other classes.
 **Confusion Matrix**
 
 <p align="center">
- <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/confusion_matrix.png" width="500" height="500">
+ <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/confusion_matrix.png" width="550" height="500">
 </p>
 
 The confusion matrix shows that the model makes wrong predictions between (crosswalk, trafficlight, speedlimit) and the background.
@@ -180,7 +180,10 @@ In this val result image, we can see that all the predictions are correct, but t
 
 If we want to increase the correct predictions with a higher confidence score, we can try to modify the objectness loss function. In the source code of Yolov5, it calculates objectness loss using iou, we can change it to predict 1 instead.
 
-![1708556807111](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/val_batch1_pred_custom.jpg)
+
+<p align="center">
+ <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/val_batch0_pred_custom.jpg" width="500" height="180">
+</p>
 
 These val results have a False Positive (FP) prediction as circled in red. It predicts a partial hidden sign as speedlimit with a very high confidence=0.7.
 
