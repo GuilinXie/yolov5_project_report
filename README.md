@@ -182,7 +182,7 @@ If we want to increase the correct predictions with a higher confidence score, w
 
 
 <p align="center">
- <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/val_batch0_pred_custom.jpg" width="500" height="180">
+ <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/val_batch1_pred_custom.jpg" width="500" height="160">
 </p>
 
 These val results have a False Positive (FP) prediction as circled in red. It predicts a partial hidden sign as speedlimit with a very high confidence=0.7.
