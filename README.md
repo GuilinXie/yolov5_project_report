@@ -10,7 +10,7 @@
   * [Prepare Yolo Format Labels](#Prepare_Yolo_format_labels)
   * [Train Model](#Train_Model)
   * [Train and Val Results Analysis](#Train_and_Val_results_Analysis)
-  * [Approaches to Improve](#Approaches_to_improve)
+  * [Approaches to Improve](#Approaches_to_Improve)
 * [Pros and Cons of Yolov5](#Pros_and_Cons_of_Yolov5)
 * [References](#References)
 
@@ -18,7 +18,7 @@
 
 Yolov5 is an anchor-based real-time object detection model.
 
-In the Yolov5 architecture, there are 1 backbone, followed by 3 detection heads.
+In the Yolov5 architecture, there is 1 backbone, followed by 3 detection heads.
 
 It can detect objects in 3 size scales.
 
@@ -33,13 +33,13 @@ It can detect objects in 3 size scales.
 3. Training stratigies
    1. Multiscale Training
    2. AutoAnchor
-   3. Warmup and Cosine LR Schedular
+   3. Warmup and Cosine LR Scheduler
    4. Exponential Moving Average (EMA)
    5. Mixed Precision Training
    6. Hyperparameter Evolution
 4. Computing loss strategies
    1. Weighted loss over Classes Loss (BCE loss), Objectness Loss (BCE Loss), and Location Loss
-   2. Balanced objectness loss with [4, 1, 0.4] over small, median, large size objects
+   2. Balanced objectness loss with [4, 1, 0.4] over small, medium, large size objects
    3. More grids and anchors assigned as ground truth targets to increase positive classes.
    4. Revised formula to predict the box coordinates, to reduce grid sensiticity and prevent predicting unbounded box dimensions.
 
@@ -49,13 +49,13 @@ It can detect objects in 3 size scales.
 
 **train** is the entry point.
 
-**ComputeLoss** measures the difference between the ground truth and predictions. The final loss is a weighted combination of Classes Loss (BCE Loss), Objectness Loss (BCE Loss) and Location Loss (CIoU Loss)
+**ComputeLoss** measures the difference between the ground truth and predictions. The final loss is a weighted combination of Classes Loss (BCE Loss), Objectness Loss (BCE Loss), and Location Loss (CIoU Loss)
 
 ```
 build_targets() is an important method to assign GT boxes to the right feature map grid and anchors.
 ```
 
-**DetectionModel** predicts the prediction results. It initiates Yolov5 model by using .cfg  or loading the pretrained weights. Some classes are the building blocks of the Yolov5 model, like Conv, C3, SPPF, etc.
+**DetectionModel** predicts the prediction results. It initiates the Yolov5 model by using .cfg  or loading the pre-trained weights. Some classes are the building blocks of the Yolov5 model, like Conv, C3, SPPF, etc.
 
 **LoadImagesAndLabels** and **InifiniteDataLoader** access and wrap the input images and labels for training.
 
@@ -72,7 +72,7 @@ Example model: Yolov5s
 
 *Note that the 255 = B * (bbox + obj + cls) = 3 * (4 + 1 + 80)*
 
-**Input** are images, with height * width * channels in dimensions. And they have ground trueth bounding boxes in training.
+**Input** are images, with height * width * channels in dimensions. And they have ground truth bounding boxes in training.
 
 **Preprocessing** includes
 
@@ -86,22 +86,22 @@ dataloader()
 
 **Head** further refines the feature and prepares them for prediction.
 
-**Detect** produces the final predictions, includes bounding box coordinates, objectness scores, and class probabilities.
+**Detect** produces the final predictions, including bounding box coordinates, objectness scores, and class probabilities.
 
-**Postprocessing** includes NMS in detect phase.
+**Postprocessing** includes NMS in the detection phase.
 
 NMS includes actions such as
 
 1. filtering detections by confidence
 2. calculating conf = obj_conf * cls_conf
 3. sorting conf in descending order,
-4. outputing the result predictions after filtering overlapping iou, it has a output number of limit with max_nms = 300
+4. outputting the result predictions after filtering overlapping iou, it has an output number of the limit with max_nms = 300
 
 # Experiments
 
 **Task-Detect Traffic Signs**
 
-Train a yolov5 model to detect 4 traffic signs: speedlimit, crosswalk, trafficlight, stop
+Train a yolov5 model to detect 4 traffic signs: speed limit, crosswalk, traffic light, stop
 
 **Data Exploratory Analysis**
 
@@ -109,9 +109,9 @@ Train a yolov5 model to detect 4 traffic signs: speedlimit, crosswalk, trafficli
 
 ![1708544160918](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/labels.jpg)
 
-The top-left image shows the number of instances for each class. The most frequent class is speedlimit, with the number of about 570,  while the stop sign is the least frequent, with only around 90 instances. This indicates that, firstly, the classes are imbalanced. Secondly, we may need to collect more data. As some best practice recommends to train over 1500 images per class, and more than 10, 000 instances per class, with 10% background images, to achieve a robust Yolov5 detection model and to reduce FP errors. But at this point, I will just work on this 877 tiny image dataset to show Yolov5 workflow.
+The top-left image shows the number of instances for each class. The most frequent class is speedlimit, with the number of about 570,  while the stop sign is the least frequent, with only around 90 instances. This indicates that, firstly, the classes are imbalanced. Secondly, we may need to collect more data. Some best practice recommends training over 1500 images per class, and more than 10, 000 instances per class, with 10% background images, to achieve a robust Yolov5 detection model and to reduce FP errors. But at this point, I will just work on this 877-tiny image dataset to show the Yolov5 workflow.
 
-The top-right image shows that most of the bounding boxes are relatively small, so we need to detect more smaller objects than larger ones. The bottom-right image confirms this, as most bounding boxes' height and width ratios are near (0, 0)
+The top-right image shows that most of the bounding boxes are relatively small, so we need to detect smaller objects than larger ones. The bottom-right image confirms this, as most bounding boxes' height and width ratios are near (0, 0)
 
 The bottom-left image shows that the instances are mostly located in the middle of the images.
 
@@ -145,47 +145,47 @@ train & val loss
 
 ![1708546857160](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/results.png)
 
-The loss results show that training loss and val loss are decreasing and precision, recall and mAP metrics are increasing as expected.
+The loss results show that training loss and val loss are decreasing and precision, recall, and mAP metrics are increasing as expected.
 
 The cls_clss and mAP_0.5 are converging to the flat point. But the box_loss, obj_loss, and mAP_0.5:0.95, and recall are still slightly decreasing or increasing over the number of epochs. This means that if we train more epochs, these metrics may get better.
 
 **Precision-Recall Curve**
 
-![1708554987946](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/PR_curve.png)
+![1708554987946](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/PR_curve.png=250*250)
 
-This figure shows that, for all alsses, in area near point (Recall = 0.8, Precision = 0.93), the  model performs well on both Precison and Recall.
+This figure shows that, for all classes, in the area near the point (Recall = 0.8, Precision = 0.93), the  model performs well on both Precision and Recall.
 
-And the model does not predict trafficlight as good as other classes.
+The model does not predict trafficlight as well as other classes.
 
 **Confusion Matrix**
 
 ![1708555396374](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/confusion_matrix.png)
 
-The confusion matrix shows that, the model makes wrong predictions between (crosswalk, trafficlight, speedlimit) and background.
+The confusion matrix shows that the model makes wrong predictions between (crosswalk, trafficlight, speedlimit) and the background.
 
-So we can consider to add some background images during training.
+So we can consider adding some background images during training.
 
 **Val Predictions**
 
 ![1708556883215](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/val_batch0_pred_custom.jpg)
 
-In this val result image, we can see that all the predictions are correct, but there are 4 trafficlight signs are with low confidence score like 0.3 and 0.4, as marked in red circles.
+In this val result image, we can see that all the predictions are correct, but there are 4 trafficlight signs with low confidence scores like 0.3 and 0.4, as marked in red circles.
 
-If we want to increase the correct predictions with higher confidence score, we can try to modify the objectness loss function. In the source code of Yolov5, it calculate objectness loss using iou, we can change it to predict 1 instead.
+If we want to increase the correct predictions with a higher confidence score, we can try to modify the objectness loss function. In the source code of Yolov5, it calculates objectness loss using iou, we can change it to predict 1 instead.
 
 ![1708556807111](https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/val_batch1_pred_custom.jpg)
 
-This val results have a False Positive (FP) prediction as circled in red. It predicts a partial hidden sign as speedlimit with a very high confidence=0.7.
+These val results have a False Positive (FP) prediction as circled in red. It predicts a partial hidden sign as speedlimit with a very high confidence=0.7.
 
-This happens mainly because we do mosaic data augmentation during training. Mosaic will crop training images randomly. This can lead to cut the GT boxes as well. Some instances are left with small parts. Even though it has a strategy to filter those partially left in *box_candidates()* function. It is not good enough avoid the FP in this case. 
+This happens mainly because we do mosaic data augmentation during training. Mosaic will crop training images randomly. This can lead to cut the GT boxes as well. Some instances are left with small parts. Even though it has a strategy to filter those partially left in the *box_candidates()* function. It is not good enough to avoid the FP in this case. 
 
-The target objects is already small, and cut out most of it and still mark it as positive does not make sense. So we need to customize *load_mosaic()* function to fit the small targets detection scenario as in this case.
+The target object is already small, and cutting out most of it and still marking it as positive does not make sense. So we need to customize the *load_mosaic()* function to fit the small targets detection scenario as in this case.
 
-To improve this, we need to mask out the partially left objects if they are too small as compared to a certain threshold. We need to mask out the objects in the image, because we do not want to leave any partially left objects without labels.
+To improve this, we need to mask out the partially left objects if they are too small as compared to a certain threshold. We need to mask out the objects in the image because we do not want to leave any partially left objects without labels.
 
 **Approaches to Improve**
 
-According to the previous result analysis, I figure out that we could do the following to improve the model's performance:
+According to the previous result analysis, I figured out that we could do the following to improve the model's performance:
 
 1. **From the dataset's view**
 
@@ -199,12 +199,12 @@ According to the previous result analysis, I figure out that we could do the fol
 
 3. **From data augmentation's view**:
 
-* Customized mosaic augmentation to avoid small object's FPs
+* Customized mosaic augmentation to avoid small objects' FPs
 
 4. **From model architecture's view**
 
-* Add a 4th detection heads in 160 * 160 feature map level, so that it can better detect small objects
-* Add more anchor boxes in the small scale feature map to detect small objects
+* Add a 4th detection head in 160 * 160 feature map level, so that it can better detect small objects
+* Add more anchor boxes in the small-scale feature map to detect small objects
 * Try larger models like Yolov5l
 * Trye newer models like Yolov8
 
