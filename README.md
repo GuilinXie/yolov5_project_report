@@ -22,7 +22,7 @@ In the YOLOv5 architecture, there is 1 backbone, followed by 3 detection heads.
 
 It can detect objects in 3 size scales.
 
-# YoloV5 Features
+# YOLOv5 Features
 
 1. Dynamic architecture
 2. Data augmentation techniques
@@ -55,7 +55,7 @@ It can detect objects in 3 size scales.
 build_targets() is an important method to assign GT boxes to the right feature map grid and anchors.
 ```
 
-**DetectionModel** predicts the prediction results. It initiates the YOLOv5 model by using .cfg  or loading the pre-trained weights. Some classes are the building blocks of the Yolov5 model, like Conv, C3, SPPF, etc.
+**DetectionModel** predicts the prediction results. It initiates the YOLOv5 model by using .cfg  or loading the pre-trained weights. Some classes are the building blocks of the YOLOv5 model, like Conv, C3, SPPF, etc.
 
 **LoadImagesAndLabels** and **InifiniteDataLoader** access and wrap the input images and labels for training.
 
@@ -67,7 +67,7 @@ B: the number of anchor boxes = 3
 
 C: class = 80
 
-Example model: Yolov5s
+Example model: YOLOv5s
 ![](http://www.plantuml.com/plantuml/svg/~1UDfjKR5Emp0GtVqLjv4YAgKfgIe61c0e4vKO683XaXnHLESSsOu4Vy_5XkAK3ddAlNT-xpcvS8UE1xJOmntMXzQQaPjxeuq5Rv6TICHU_MtLfXyC2_VilpI1fTeZjvgKEYgmjpHOKvDp7RS9FoLKyffGEy8c6H_8Ys52F8r-65FYaUVptZYVXAcWmz8kR-Sru0PsS0alygpLN0dBlzraRoqxc-iyeZeAOMtg2ofWc6DXERGgjd9WcqV8DDgM5cyCHRaHAhW9P3qr7V8abAj2k2AFaBaUjLwe7x-f_UnYab2KvRc4IFyFYFof_uchvCGlBFwlLMK-h-G7yuUWHkVUlm5UBgoO)
 
 *Note that the 255 = B * (bbox + obj + cls) = 3 * (4 + 1 + 80)*
@@ -101,7 +101,7 @@ NMS includes actions such as
 
 ## A Task-Detect Traffic Signs
 
-Train a yolov5 model to detect 4 traffic signs: speed limit, crosswalk, traffic light, stop
+Train a YOLOv5 model to detect 4 traffic signs: speed limit, crosswalk, traffic light, stop
 
 ## Data Exploratory Analysis
 
@@ -111,7 +111,7 @@ Train a yolov5 model to detect 4 traffic signs: speed limit, crosswalk, traffic 
  <img src="https://github.com/GuilinXie/yolov5_project_report/blob/main/result_img/labels.jpg" width="500" height="500">
 </p>
 
-The top-left image shows the number of instances for each class. The most frequent class is speedlimit, with the number of about 570,  while the stop sign is the least frequent, with only around 90 instances. This indicates that, firstly, the classes are imbalanced. Secondly, we may need to collect more data. Some best practice recommends training over 1500 images per class, and more than 10, 000 instances per class, with 10% background images, to achieve a robust Yolov5 detection model and to reduce FP errors. But at this point, I will just work on this 877-tiny image dataset to show the Yolov5 workflow.
+The top-left image shows the number of instances for each class. The most frequent class is speedlimit, with the number of about 570,  while the stop sign is the least frequent, with only around 90 instances. This indicates that, firstly, the classes are imbalanced. Secondly, we may need to collect more data. Some best practice recommends training over 1500 images per class, and more than 10, 000 instances per class, with 10% background images, to achieve a robust YOLOv5 detection model and to reduce FP errors. But at this point, I will just work on this 877-tiny image dataset to show the YOLOv5 workflow.
 
 The top-right image shows that most of the bounding boxes are relatively small, so we need to detect smaller objects than larger ones. The bottom-right image confirms this, as most bounding boxes' height and width ratios are near (0, 0)
 
@@ -178,7 +178,7 @@ So we can consider adding some background images during training.
 
 In this val result image, we can see that all the predictions are correct, but there are 4 trafficlight signs with low confidence scores like 0.3 and 0.4, as marked in red circles.
 
-If we want to increase the correct predictions with a higher confidence score, we can try to modify the objectness loss function. In the source code of Yolov5, it calculates objectness loss using iou, we can change it to predict 1 instead.
+If we want to increase the correct predictions with a higher confidence score, we can try to modify the objectness loss function. In the source code of YOLOv5, it calculates objectness loss using iou, we can change it to predict 1 instead.
 
 
 <p align="center">
