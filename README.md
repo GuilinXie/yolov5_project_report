@@ -1,17 +1,17 @@
 # Contents of Table
 
 * [Introduction](#introduction)
-* [YoloV5 Features](#yolov5_features)
-* [Class Diagram for Major Classes](#Class_Diagram_for_major_classes)
-* [Data Flow](#Data_Flow)
+* [YoloV5 Features](#yolov5-features)
+* [Class Diagram for Major Classes](#Class-Diagram-for-major-classes)
+* [Data Flow](#Data-Flow)
 * [Experiments](#Experiments)
-  * [Task-Detect Traffic Signs](##Task-detect_traffic_signs)
-  * [Data Exploratory Analysis](##Data_Exploratory_Analysis)
-  * [Prepare Yolo Format Labels](##Prepare_Yolo_format_labels)
-  * [Train Model](##Train_Model)
-  * [Train and Val Results Analysis](##Train_and_Val_results_Analysis)
-  * [Approaches to Improve](##Approaches_to_Improve)
-* [Pros and Cons of Yolov5](##Pros_and_Cons_of_Yolov5)
+  * [A Task: Detect Traffic Signs](##A-Task-detect:-traffic-signs)
+  * [Data Exploratory Analysis](##Data-Exploratory-Analysis)
+  * [Prepare Yolo Format Labels](##Prepare-Yolo-format-labels)
+  * [Train Model](##Train-Model)
+  * [Train and Val Results Analysis](##Train-and-Val-results-Analysis)
+  * [Approaches to Improve](##Approaches-to-Improve)
+* [Pros and Cons of Yolov5](##Pros-and-Cons-of-Yolov5)
 * [References](#References)
 
 # Introduction
@@ -99,7 +99,7 @@ NMS includes actions such as
 
 # Experiments
 
-## Task-Detect Traffic Signs
+## A Task: Detect Traffic Signs
 
 Train a yolov5 model to detect 4 traffic signs: speed limit, crosswalk, traffic light, stop
 
