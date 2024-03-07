@@ -1,24 +1,24 @@
 # Contents of Table
 
 * [Introduction](#introduction)
-* [YoloV5 Features](#yolov5-features)
-* [Class Diagram for Major Classes](#Class-Diagram-for-major-classes)
-* [Data Flow](#Data-Flow)
-* [Experiments](#Experiments)
-  * [A Task: Detect Traffic Signs](##A-Task-detect:-traffic-signs)
+* [YOLOv5 Features](#yolov5-features)
+* [Class Diagram for Major Classes](#class-diagram-for-major-classes)
+* [Data Flow](#data-flow)
+* [Experiments](#experiments)
+  * [A Task-Detect Traffic Signs](##a-task-detect-traffic-signs)
   * [Data Exploratory Analysis](##Data-Exploratory-Analysis)
-  * [Prepare Yolo Format Labels](##Prepare-Yolo-format-labels)
+  * [Prepare YOLO Format Labels](##Prepare-Yolo-format-labels)
   * [Train Model](##Train-Model)
   * [Train and Val Results Analysis](##Train-and-Val-results-Analysis)
   * [Approaches to Improve](##Approaches-to-Improve)
-* [Pros and Cons of Yolov5](##Pros-and-Cons-of-Yolov5)
-* [References](#References)
+* [Pros and Cons of YOLOv5](##pros-and-cons-of-yolov5)
+* [References](#references)
 
 # Introduction
 
-Yolov5 is an anchor-based real-time object detection model.
+YOLOv5 is an anchor-based real-time object detection model.
 
-In the Yolov5 architecture, there is 1 backbone, followed by 3 detection heads.
+In the YOLOv5 architecture, there is 1 backbone, followed by 3 detection heads.
 
 It can detect objects in 3 size scales.
 
@@ -55,7 +55,7 @@ It can detect objects in 3 size scales.
 build_targets() is an important method to assign GT boxes to the right feature map grid and anchors.
 ```
 
-**DetectionModel** predicts the prediction results. It initiates the Yolov5 model by using .cfg  or loading the pre-trained weights. Some classes are the building blocks of the Yolov5 model, like Conv, C3, SPPF, etc.
+**DetectionModel** predicts the prediction results. It initiates the YOLOv5 model by using .cfg  or loading the pre-trained weights. Some classes are the building blocks of the Yolov5 model, like Conv, C3, SPPF, etc.
 
 **LoadImagesAndLabels** and **InifiniteDataLoader** access and wrap the input images and labels for training.
 
@@ -99,7 +99,7 @@ NMS includes actions such as
 
 # Experiments
 
-## A Task: Detect Traffic Signs
+## A Task-Detect Traffic Signs
 
 Train a yolov5 model to detect 4 traffic signs: speed limit, crosswalk, traffic light, stop
 
