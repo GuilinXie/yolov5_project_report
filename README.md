@@ -221,7 +221,7 @@ According to the previous result analysis, I figured out that we could do the fo
 * Enable focal loss to fight imbalanced datasets
   
 
-# Reference:
+# Reference
 
 [1] https://github.com/ultralytics/yolov5/issues/11299
 
