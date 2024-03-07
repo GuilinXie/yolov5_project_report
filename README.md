@@ -11,7 +11,6 @@
   * [Train Model](##Train-Model)
   * [Train and Val Results Analysis](##Train-and-Val-results-Analysis)
   * [Approaches to Improve](##Approaches-to-Improve)
-* [Pros and Cons of YOLOv5](##pros-and-cons-of-yolov5)
 * [References](#references)
 
 # Introduction
@@ -117,7 +116,7 @@ The top-right image shows that most of the bounding boxes are relatively small, 
 
 The bottom-left image shows that the instances are mostly located in the middle of the images.
 
-## Prepare Yolo Format Labels
+## Prepare YOLO Format Labels
 
 The original labels are (x1, y1, x2, y2), which are the top-left and bottom-right positions in images, we convert these to (x0, y0, w, h) for yolo format, which are the bounding box's center position and the w, h ratio to the image size.
 
@@ -215,8 +214,8 @@ According to the previous result analysis, I figured out that we could do the fo
 
 * Add a 4th detection head in 160 * 160 feature map level, so that it can better detect small objects
 * Add more anchor boxes in the small-scale feature map to detect small objects
-* Try larger models like Yolov5l
-* Trye newer models like Yolov8
+* Try larger models like YOLOv5l
+* Trye newer models like YOLOv8
 
 ### 5. From hyperparameters' view
 * Enable focal loss to fight imbalanced datasets
