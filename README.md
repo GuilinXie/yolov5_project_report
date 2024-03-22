@@ -1,4 +1,4 @@
-# Contents of Table
+# Table of Contents
 
 * [Introduction](#introduction)
 * [YOLOv5 Features](#yolov5-features)
